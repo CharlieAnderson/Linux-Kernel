@@ -1,0 +1,42 @@
+boot.o: boot.S multiboot.h x86_desc.h types.h
+irq.o: irq.S x86_desc.h types.h
+linkage.o: linkage.S x86_desc.h types.h
+x86_desc.o: x86_desc.S x86_desc.h types.h
+filesys.o: filesys.c filesys.h types.h multiboot.h lib.h syscalls.h \
+  terminal.h i8259.h keyboard.h rtc.h pcb.h paging.h idt_init.h \
+  x86_desc.h pit.h sched.h tty.h
+i8259.o: i8259.c i8259.h types.h lib.h
+idt_init.o: idt_init.c lib.h types.h x86_desc.h idt_init.h irq.h pcb.h \
+  filesys.h multiboot.h terminal.h i8259.h keyboard.h paging.h linkage.h \
+  syscalls.h rtc.h pit.h sched.h tty.h
+kernel.o: kernel.c multiboot.h types.h x86_desc.h lib.h i8259.h debug.h \
+  keyboard.h idt_init.h rtc.h filesys.h paging.h terminal.h syscalls.h \
+  pcb.h pit.h sched.h tty.h
+keyboard.o: keyboard.c keyboard.h types.h lib.h i8259.h syscalls.h \
+  terminal.h rtc.h filesys.h multiboot.h pcb.h paging.h idt_init.h \
+  x86_desc.h pit.h sched.h tty.h
+lib.o: lib.c lib.h types.h pcb.h filesys.h multiboot.h terminal.h i8259.h \
+  keyboard.h paging.h syscalls.h rtc.h idt_init.h x86_desc.h pit.h \
+  sched.h tty.h
+paging.o: paging.c paging.h lib.h types.h tty.h keyboard.h i8259.h \
+  syscalls.h terminal.h rtc.h filesys.h multiboot.h pcb.h idt_init.h \
+  x86_desc.h pit.h sched.h
+pcb.o: pcb.c pcb.h types.h filesys.h multiboot.h terminal.h lib.h i8259.h \
+  keyboard.h paging.h tty.h syscalls.h rtc.h idt_init.h x86_desc.h pit.h \
+  sched.h
+pit.o: pit.c pit.h i8259.h types.h lib.h sched.h pcb.h filesys.h \
+  multiboot.h terminal.h keyboard.h paging.h syscalls.h rtc.h idt_init.h \
+  x86_desc.h tty.h
+rtc.o: rtc.c rtc.h types.h i8259.h lib.h
+sched.o: sched.c sched.h types.h pcb.h filesys.h multiboot.h terminal.h \
+  lib.h i8259.h keyboard.h paging.h syscalls.h rtc.h idt_init.h \
+  x86_desc.h pit.h tty.h
+syscalls.o: syscalls.c syscalls.h lib.h types.h terminal.h i8259.h \
+  keyboard.h rtc.h filesys.h multiboot.h pcb.h paging.h idt_init.h \
+  x86_desc.h pit.h sched.h tty.h debug.h linkage.h
+terminal.o: terminal.c terminal.h types.h lib.h i8259.h keyboard.h \
+  syscalls.h rtc.h filesys.h multiboot.h pcb.h paging.h idt_init.h \
+  x86_desc.h pit.h sched.h tty.h
+tty.o: tty.c tty.h keyboard.h types.h lib.h i8259.h syscalls.h terminal.h \
+  rtc.h filesys.h multiboot.h pcb.h paging.h idt_init.h x86_desc.h pit.h \
+  sched.h

@@ -1,0 +1,47 @@
+ECE 391 MP3 Buglog
+Group Name: group31
+NetIDs: cmndrsn2, perknsn2, mrtnvch2, rydong2
+
+Checkpoint 3.1
+	1. Blue screen did not prevent additional keyboard inputs
+		Solution: Add a cli() to every idt entry that causes a blue screen
+			Time spent: 5 minutes
+
+Checkpoint 3.2
+	1. Backspacing didn't actually clear the buffer so it would cap out even if you backspaced on screen
+		Solution: Decremented the buffer_index with every backspace
+			Time spent: 1 hour
+	2. Screen kept on printing out debug statements in a loop
+		Solution: Added in a flag for enter
+			Time spent: 2 hours
+
+Checkpoint 3.3
+	1. General Protection Error switching to user level
+		Solution: We rearranged our stack setup for iret. I think eip was in the wrong place.
+			Time spent: 1 hour
+
+Checkpoint 3.4
+	1. Halt working improperly, page faulting with shell/exit
+		Solution: Pointed to parent pcb instead of grandparent
+			Time spent: 6 hours
+	2. hello wasn't outputting the new line correctly
+		Solution: Rewrote the terminal read/write buffer for clarity/functionality
+			Time spent: 30 minutes
+	3. pingpong was not functioning properly, would print 2 lines then stop
+		Solution: Fixed reading from buffer instead of nbytes, also fixed printing speed
+			Time spent: 3 hours
+	4. Fish wasn't writing to screen, counter wasn't printing anything
+		Solution: Set the offset wrong when copying data over in loader
+			Time spent: 8 hours
+
+Checkpoint 3.5
+	1.When counter is running and you switch to a different terminal then switch back it has stopped.
+		Solution: fixed in point 2
+			Time spent: 6 hours
+	2.When runnning pingpong if you switch terminals and switch back there is a gap in the video.
+		Solution: Created a separate puts function to write to a the backing page.  Handles its own cursor position and scrolling so that it doesn't mess with any other terminals.
+			Time spent: 6 hours
+	3.While hello was running we could not press enter in another terminal.
+		Solution: We just needed to sti() in terminal_read. Somewhere there was a cli() that never
+			  was unmasked.
+			Time spent: 2 hours
